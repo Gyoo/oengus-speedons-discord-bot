@@ -3,9 +3,9 @@ package main
 import (
 	"fmt"
 	"log"
-	"oenugs-bot/rabbitmq"
-	"oenugs-bot/slashHandlers"
-	"oenugs-bot/utils"
+	"oengus-bot/rabbitmq"
+	"oengus-bot/slashHandlers"
+	"oengus-bot/utils"
 	"os"
 	"os/signal"
 	"syscall"

@@ -3,8 +3,8 @@ package slashHandlers
 import (
 	"fmt"
 	"github.com/bwmarrin/discordgo"
-	"oenugs-bot/api"
-	"oenugs-bot/utils"
+	"oengus-bot/api"
+	"oengus-bot/utils"
 	"strconv"
 )
 

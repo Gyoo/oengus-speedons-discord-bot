@@ -3,9 +3,9 @@ package slashHandlers
 import (
 	"github.com/bwmarrin/discordgo"
 	"golang.org/x/exp/slices"
-	"oenugs-bot/api"
-	"oenugs-bot/discord"
-	"oenugs-bot/utils"
+	"oengus-bot/api"
+	"oengus-bot/discord"
+	"oengus-bot/utils"
 )
 
 func HandleRoleManagement(s *discordgo.Session, i *discordgo.InteractionCreate) {

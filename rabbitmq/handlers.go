@@ -8,8 +8,8 @@ import (
 	"github.com/google/go-cmp/cmp"
 	"github.com/google/go-cmp/cmp/cmpopts"
 	"log"
-	"oenugs-bot/api"
-	"oenugs-bot/utils"
+	"oengus-bot/api"
+	"oengus-bot/utils"
 	"strings"
 	"time"
 )
@@ -349,11 +349,12 @@ func sendNewCategoryEmbed(dg *discordgo.Session, game api.Game, cat api.Category
 		URL:   shortUrl + "/" + marathonId + "/submissions",
 		Title: utils.EscapeMarkdown(submitter + " submitted a run to " + marathonName),
 		Description: fmt.Sprintf(
-			"**Game:** %s\n**Category:** %s\n**Platform:** %s\n**Estimate:** %s",
+			"**Game:** %s\n**Category:** %s\n**Platform:** %s\n**Estimate:** %s\n**Highlights:** %s",
 			utils.EscapeMarkdown(game.Name),
 			utils.EscapeMarkdown(cat.Name),
 			utils.EscapeMarkdown(game.Console),
 			utils.ParseAndMakeDurationPretty(cat.Estimate),
+			utils.EscapeMarkdown(cat.Highlights),
 		),
 	})
 
@@ -391,12 +392,17 @@ func sendUpdatedCategory(
 	}
 
 	if newCategory.Description != oldCategory.Description {
-		builder.WriteString("\n**Category Description:** ")
+		builder.WriteString("\n**Category Strengths:** ")
 		builder.WriteString(parseUpdatedString(newCategory.Description, oldCategory.Description))
 	}
 
+	if newCategory.Highlights != oldCategory.Highlights {
+		builder.WriteString("\n**Highlights:** ")
+		builder.WriteString(parseUpdatedString(newCategory.Highlights, oldCategory.Highlights))
+	}
+
 	if newGame.Description != oldGame.Description {
-		builder.WriteString("\n**Game Description:** ")
+		builder.WriteString("\n**Why submit this game ?** ")
 		builder.WriteString(parseUpdatedString(newGame.Description, oldGame.Description))
 	}
 

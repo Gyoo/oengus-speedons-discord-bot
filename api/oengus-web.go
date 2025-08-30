@@ -7,7 +7,7 @@ import (
 	"io"
 	"log"
 	"net/http"
-	"oenugs-bot/utils"
+	"oengus-bot/utils"
 )
 
 var httpClient = http.DefaultClient

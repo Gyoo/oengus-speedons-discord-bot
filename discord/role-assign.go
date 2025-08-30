@@ -4,7 +4,7 @@ import (
 	"fmt"
 	"github.com/bwmarrin/discordgo"
 	"golang.org/x/exp/slices"
-	"oenugs-bot/api"
+	"oengus-bot/api"
 )
 
 var guildMembersPageLimit = 1000

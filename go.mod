@@ -1,4 +1,4 @@
-module oenugs-bot
+module oengus-bot
 
 go 1.19
 

@@ -1,8 +1,7 @@
 name: Public to production
 on:
-  workflow_dispatch: {}
-#    push:
-#        branches: [master]
+    push:
+        branches: [master, speedons]
 jobs:
   build:
 
@@ -19,7 +18,7 @@ jobs:
       - name: Login to Github packages
         uses: docker/login-action@v3
         with:
-          username: duncte123
+          username: ${{ secrets.DOCKER_USERNAME }}
           password: ${{ secrets.DOCKER_TOKEN }}
 
       - name: Build and push
@@ -28,7 +27,7 @@ jobs:
         with:
           context: .
           push: true
-          tags: oengusio/bot:latest
+          tags: oengusspeedons/bot:latest
           cache-from: type=gha
           cache-to: type=gha
           build-args: |
@@ -38,7 +37,3 @@ jobs:
       - name: Image digest
         run: echo ${{ steps.docker_build.outputs.digest }}
 
-      - name: Trigger prod webhook
-        uses: distributhor/workflow-webhook@v3
-        with:
-          webhook_url: ${{ secrets.WEBHOOK_URL }}
