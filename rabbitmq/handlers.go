@@ -15,7 +15,7 @@ import (
 )
 
 // TODO: replace bot webhook with settings.
-var shortUrl = "https://oengus.fun"
+var shortUrl = "https://candidatures.speedons.fr"
 var eventHandlers = map[string]func(dg *discordgo.Session, data api.WebhookData, params api.BotHookParams){
 	// TODO: donation (When we support it again)
 	"SUBMISSION_ADD":    handleSubmissionAdd,
@@ -346,7 +346,7 @@ func sendNewGame(dg *discordgo.Session, game api.Game, submission api.Submission
 
 func sendNewCategoryEmbed(dg *discordgo.Session, game api.Game, cat api.Category, submitter, channelId, marathonId, marathonName string) {
 	_, err := dg.ChannelMessageSendEmbed(channelId, &discordgo.MessageEmbed{
-		URL:   shortUrl + "/" + marathonId + "/submissions",
+		URL:   shortUrl + "/marathon/" + marathonId + "/submissions",
 		Title: utils.EscapeMarkdown(submitter + " submitted a run to " + marathonName),
 		Description: fmt.Sprintf(
 			"**Game:** %s\n**Category:** %s\n**Platform:** %s\n**Estimate:** %s\n**Highlights:** %s",
@@ -407,7 +407,7 @@ func sendUpdatedCategory(
 	}
 
 	_, err := dg.ChannelMessageSendEmbed(channelId, &discordgo.MessageEmbed{
-		URL:         shortUrl + "/" + marathonId + "/submissions",
+		URL:         shortUrl + "/marathon/" + marathonId + "/submissions",
 		Title:       utils.EscapeMarkdown(username + " updated a run in " + marathonName),
 		Description: builder.String(),
 	})
@@ -435,7 +435,7 @@ func sendRemovedCategoryEmbed(dg *discordgo.Session, game api.Game, cat api.Cate
 	}
 
 	_, err := dg.ChannelMessageSendEmbed(channelId, &discordgo.MessageEmbed{
-		URL:   shortUrl + "/" + marathonId + "/submissions",
+		URL:   shortUrl + "/marathon/" + marathonId + "/submissions",
 		Title: utils.EscapeMarkdown(headerText + " in " + marathonName),
 		Description: fmt.Sprintf(
 			"**Game:** %s\n**Category:** %s\n**Platform:** %s\n**Estimate:** %s",
@@ -478,7 +478,7 @@ func sendSelectionApprovedEmbed(dg *discordgo.Session, channelId string, selecti
 	opponents := strings.Join(append([]string{user.Username}, opponentUsernames...), ", ")
 
 	_, err := dg.ChannelMessageSendEmbed(channelId, &discordgo.MessageEmbed{
-		URL:   shortUrl + "/" + selection.MarathonId,
+		URL:   shortUrl + "/marathon/" + selection.MarathonId,
 		Title: "A run has been accepted!",
 		Description: fmt.Sprintf(
 			"**Submitted by:** %s\n**Game:** %s\n**Category:** %s\n**Estimate:** %s\n**Platform:** %s\n**Runners:** %s",
@@ -508,7 +508,7 @@ func sendNewOpponentEmbed(dg *discordgo.Session, params api.BotHookParams, submi
 
 func sendRaceJoinedEmbed(dg *discordgo.Session, channelId, marathonId, submitter string, categoryInfo api.OpponentCategoryInfoDto) {
 	_, err := dg.ChannelMessageSendEmbed(channelId, &discordgo.MessageEmbed{
-		URL:   shortUrl + "/" + marathonId + "/submissions",
+		URL:   shortUrl + "/marathon/" + marathonId + "/submissions",
 		Title: utils.EscapeMarkdown(submitter + " joined the multiplayer run for " + utils.EscapeMarkdown(categoryInfo.GameName)),
 		Description: fmt.Sprintf(
 			"**Category:** %s\n**Estimate:** %s\n",
@@ -526,7 +526,7 @@ func sendOpponentRemovedEmbed(dg *discordgo.Session, params api.BotHookParams, s
 	categoryInfo, _ := api.GetOpponentCategoryById(opponent.CategoryId)
 
 	_, err := dg.ChannelMessageSendEmbed(params.EditSub, &discordgo.MessageEmbed{
-		URL:   shortUrl + "/" + params.MarathonId + "/submissions",
+		URL:   shortUrl + "/marathon/" + params.MarathonId + "/submissions",
 		Title: utils.EscapeMarkdown(submitter + " left the multiplayer run for " + utils.EscapeMarkdown(categoryInfo.GameName)),
 		Description: fmt.Sprintf(
 			"**Category:** %s\n**Estimate:** %s\n",
